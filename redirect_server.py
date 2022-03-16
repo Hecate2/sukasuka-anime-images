@@ -1,3 +1,4 @@
+import os
 import traceback
 import random
 from http.server import HTTPServer, BaseHTTPRequestHandler
@@ -24,8 +25,8 @@ class Redirect(BaseHTTPRequestHandler):
         self.end_headers()
 
 
-while 1:
-    try:
-        HTTPServer(("", 80), Redirect).serve_forever()
-    except:
-        traceback.print_exc()
+port = int(os.environ.get('PORT', 8080))
+try:
+    HTTPServer(("", port), Redirect).serve_forever()
+except:
+    traceback.print_exc()
